@@ -1,24 +1,29 @@
 package com.company;
 
-public class Cat extends Animal {
-    private static int countCats = 0;
-    public Cat (String name, String color, int age) {
-        super(name, color, age, 200, 0);
-        countCats++;
+public class Cat  {
+    private String name;
+    private int appetite;
+    private boolean satiety;
+
+    public Cat (String name,  int app) {
+        this.name = name;
+        appetite = app;
+        satiety = false;
     }
-    public int getCatsQuantity() { return countCats; }
-    @Override
-    public void run(int range) {
-        if(range<=getLimitRun()) {
-            System.out.println("Кот " + getName() + " пробежал " + range + " метров!");
+    public void eat(Plate plate) {
+        if (satiety == true || plate.getFood() < appetite) {
+            System.out.println("Эй, бесхвостый," +name + " это есть не будет!");
         } else {
-            System.out.println("Кот " + getName() + " не любит далеко бегать, тем более на  " + range + " метров, он неторопливо пробежал лишь " + getLimitRun() + " метров!");
+            plate.decreaseFood(appetite);
+            satiety = true;
+            System.out.println("Мог бы подать что-нибудь и повкуснее. Я же сам " + name);
         }
     }
-
-    @Override
-    public void swim(int range) {
-        System.out.println("Коты вообще не любят плавать, а заставить котов делать то, что они не хотят, невозможно. Поэтому, кот по имени " +
-                getName() + " никуда не поплыл, тем более, на " + range + " метров!");
+    public void isFullCat (){
+        if (satiety == true) {
+            System.out.println(name + " сыт, можешь быть свободен!");
+        } else {
+            System.out.println("Так ты еще тут?! Неси еду!" + name + " уже 5 минут как голодный!");
+        }
     }
 }
