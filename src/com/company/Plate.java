@@ -3,9 +3,6 @@ package com.company;
 public class Plate {
     private int food;
 
-    public Plate() {
-
-    }
     public void addFood(int food) {
         this.food = this.food + food;
     }
