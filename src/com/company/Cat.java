@@ -8,10 +8,9 @@ public class Cat  {
     public Cat (String name,  int app) {
         this.name = name;
         appetite = app;
-        satiety = false;
     }
     public void eat(Plate plate) {
-        if (satiety == true || plate.getFood() < appetite) {
+        if (satiety  || plate.getFood() < appetite) {
             System.out.println("Эй, бесхвостый," +name + " это есть не будет!");
         } else {
             plate.decreaseFood(appetite);

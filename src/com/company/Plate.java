@@ -4,7 +4,7 @@ public class Plate {
     private int food;
 
     public void addFood(int food) {
-        this.food = this.food + food;
+        this.food += food;
     }
     public int getFood() {
         return  food;
