@@ -4,30 +4,38 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        Participant[] part = new Participant[5];
-        Obstacle[] obt = new Obstacle[5];
+        ObstacleReal[] romanObs = new ObstacleReal[2]; //массив возможностей для человека по имени Роман
+        romanObs[0] = new ObstacleReal(10, ObstacleEnum.WALL, "стена", "перепрыгнул", "не смог перепрыгнуть");
+        romanObs[1] = new ObstacleReal(100, ObstacleEnum.TREADMILL, "беговая дорожка", "пробежал", "не смог пробежать");
 
-        part[0] = new Human("Александр", 2, 500);
-        part[1] = new Human("Алексей", 2, 500);
-        part[2] = new Cat("Байт", 4, 200);
-        part[3] = new Robot("T-800", 10, 1000);
-        part[4] = new Robot("T-9000", 12, 1200);
+        ObstacleReal[] pupsikObs = new ObstacleReal[2]; //массив возможностей кота по имени Пупсик
+        pupsikObs[0] = new ObstacleReal(2, ObstacleEnum.WALL, "стена", "перепрыгнул", "не смог перепрыгнуть");
+        pupsikObs[1] = new ObstacleReal(50, ObstacleEnum.TREADMILL, "беговая дорожка", "пробежад", "не смог пробежать");
 
-        obt[0] = new Wall(2);
-        obt[1] = new Wall(8);
-        obt[2] = new Treadmill(100);
-        obt[3] = new Treadmill(250);
-        obt[4] = new Wall(600);
+        ObstacleReal[] t800 = new ObstacleReal[4]; //Массив возможностей робота Т-800
+        t800[0] = new ObstacleReal(2, ObstacleEnum.WALL, "стена", "перепрыгнул", "не смог перепрыгнуть");
+        t800[1] = new ObstacleReal(2000, ObstacleEnum.TREADMILL, "беговая дорожка", "пробежал", "не смог пробежать");
+        t800[2] = new ObstacleReal(2000, ObstacleEnum.MAZE, "лабиринт", "прошел", "не не смог найти путь и не прошел");
+        t800[3] = new ObstacleReal(2000, ObstacleEnum.trainerUTP86, "лабиринт", "прошел", "не не смог найти путь и не прошел");
 
-        for (Participant p:
-             part) {
-            for (Obstacle obs:
-                 obt) {
-                    p.toOvercome(obs);
-            }
-        }
 
+
+        Participant[] part = new Participant[3]; //Массив участников соревнований
+        part[0] = new Human("Роман", romanObs);
+        part[1] = new Cat("Пупсик", pupsikObs);
+        part[2] = new Robot("T-800", t800);
+
+        ObstacleReal[] obstacleReals = new ObstacleReal[5]; //массив препятствий для соревнований
+        obstacleReals[0] = new ObstacleReal(1,ObstacleEnum.WALL, "стена", "перепрыгнул", "не перепрыгнул");
+        obstacleReals[1] = new ObstacleReal(70,ObstacleEnum.TREADMILL, "беговая дорожка", "пробежал", "не пробежал");
+        obstacleReals[2] = new ObstacleReal(1000,ObstacleEnum.MAZE, "лабиринт", "прошел", "не смог найти путь и не прошел");
+        obstacleReals[3] = new ObstacleReal(100,ObstacleEnum.trainerUTP86, "УТП-86", "перепрыгнул", "не перепрыгнул");
+        obstacleReals[4] = new ObstacleReal(5,ObstacleEnum.WALL, "стена", "перепрыгнул", "не перепрыгнул");
+
+
+
+        Competitor comp = new Competitor(part, obstacleReals);
+        comp.startCompetition();
     }
-
 }
 
