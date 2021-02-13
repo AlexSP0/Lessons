@@ -34,8 +34,6 @@ public class Main {
             System.out.println("Массив неверного размера!");
         } catch (MyArrayDataException e) {
             System.out.println("В массиве не только числа!");
-        } finally {
-
         }
 
     }
