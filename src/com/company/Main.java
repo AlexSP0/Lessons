@@ -30,9 +30,7 @@ public class Main {
         try {
             s = sumArray(arr);
             System.out.println("Сумма равна: " + s);
-        } catch (MyArraySizeException e) {
-            System.out.println(e.getMessage());
-        } catch (MyArrayDataException e) {
+        } catch (MyArraySizeException | MyArrayDataException e) {
             System.out.println(e.getMessage());
         }
     }
