@@ -38,19 +38,19 @@ public class Main {
         printArrayWords(array);
 
         TelephoneDirectory directory = new TelephoneDirectory();
-        directory.addRecord("Буш", 87651313);
-        directory.addRecord("Рейган", 31231);
-        directory.addRecord("Обама", 2654948);
-        directory.addRecord("Обама", 22132132);
-        directory.addRecord("Обама", 7894351);
-        directory.addRecord("Клинтон", 16546);
-        directory.addRecord("Левински", 48489);
-        directory.addRecord("Левински", 786513);
-        directory.addRecord("Кеннеди", 4651329);
+        directory.add("Буш", 87651313);
+        directory.add("Рейган", 31231);
+        directory.add("Обама", 2654948);
+        directory.add("Обама", 22132132);
+        directory.add("Обама", 7894351);
+        directory.add("Клинтон", 16546);
+        directory.add("Левински", 48489);
+        directory.add("Левински", 786513);
+        directory.add("Кеннеди", 4651329);
 
-        directory.findNumbersBySurname("Обама");
-        directory.findNumbersBySurname("Рейган");
-        directory.findNumbersBySurname("Левински");
+        directory.get("Обама");
+        directory.get("Рейган");
+        directory.get("Левински");
 
     }
 }

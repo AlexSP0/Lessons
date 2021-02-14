@@ -10,7 +10,7 @@ public class TelephoneDirectory {
         records = new ArrayList<TelephoneDirectoryEntry>(10);
     }
     //метод, добавляющий запись в массив
-    public void addRecord (String surname, int number) {
+    public void add (String surname, int number) {
         if(records.size() == 0) { //Если массив пустой
             records.add(new TelephoneDirectoryEntry(surname, number)); //то просто добавляем первую запись
         } else {  //массив не пустой
@@ -27,7 +27,7 @@ public class TelephoneDirectory {
         }
     }
     //Метод, печатающий все номера абонента
-    public void findNumbersBySurname (String surname) {
+    public void get (String surname) {
         if(records.size()>0) { //записи есть
             TelephoneDirectoryEntry[] arr = new TelephoneDirectoryEntry[records.size()];
             records.toArray(arr);
