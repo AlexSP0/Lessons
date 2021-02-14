@@ -1,52 +1,56 @@
 package com.company;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
-    public static int sumArray(String[][] arr) throws MyArraySizeException, MyArrayDataException {
-        int sum = 0;
-        if(arr.length !=4) {
-            throw new MyArraySizeException("Неверное количество строк в массиве! ");
-        } else {
-            for (int i = 0; i < arr.length; i++) {
-                if(arr[i].length !=4) {
-                    throw new MyArraySizeException("Неверное количество элементов в строке №" + i);
-                }
+    public static void printArrayWords(String[] arr){
+        //Разбираем массив в хешмап, где слова - ключи, а количество вхождений - значение.
+        HashMap<String,Integer > map = new HashMap<>(arr.length);
+        for (int i = 0; i < arr.length; i++) {
+            if(map.containsKey(arr[i])) { //такой ключ уже есть, увеличиваем на единицу
+                map.put(arr[i],map.get(arr[i])+1);
+            } else { //такого ключа еще нет, добавляем
+                map.put(arr[i], 1);
             }
         }
-            for (int i = 0; i < arr.length; i++) {
-                for (int j = 0; j < arr[i].length; j++) {
-                    try {
-                        sum = sum + Integer.parseInt(arr[i][j]);
-                    } catch(NumberFormatException e) {
-                        throw new MyArrayDataException("Неверные данные лежат  ячейке: " + i + "," + j);
-                    }
-                }
-            }
-        return sum;
-    }
-    // метод для тестирования массивов на ошибки(создан, чтобы не дублировать код try-catch
-    public static void testArray (String[][] arr) {
-        int s;
-        try {
-            s = sumArray(arr);
-            System.out.println("Сумма равна: " + s);
-        } catch (MyArraySizeException | MyArrayDataException e) {
-            System.out.println(e.getMessage());
+        //По итогу, получаем хешмапу, где ключом является слово из массива, а значением является количество его вхождений
+        // Соотвественно, те ключи, которые имеют знчение 1, уникальные, а те, значение которых больше единицы - их количество равно значению.
+        
+        //печатаем уникальные слова
+        System.out.println("************Уникальные слова************");
+        for (Map.Entry<String, Integer> o: map.entrySet()) {
+            if(o.getValue() == 1) { //слово уникальное, печатаем
+                System.out.println(o.getKey());
         }
+        }
+        //печатаем количество вхождений всех слов
+        System.out.println("************Все слова************");
+        for (Map.Entry<String, Integer> o: map.entrySet() ) {
+            System.out.println("Слово: " + o.getKey() + " имеется в массиве в количестве " + o.getValue());
+        }
+
     }
 
     public static void main(String[] args) {
-        //Три массива для тестирования, один правильный, два других с ошибкой для проверки.
+        String[] array = new String[] {"Один", "Локи", "Тюр", "Тор", "Фрейр", "Один", "Фрейя", "Локи","Хеймдалль", "Один", "Фригг", "Ньёрд", "Вотан", "Эйр", "Фригг", "Хедр", "Лофн"};
+        printArrayWords(array);
 
-        String[][] rightArray = {{"1","2","3","4"}, {"1","2","3","4"}, {"1","2","3","4"}, {"1","2","3","4"}};
-        String[][] wrongSizeArray = {{"1","2","3","4"}, {"1","2","3","4","4"}, {"1","2","3","4"}, {"1","2","3","4"}};
-        String[][] wrongDataArray = {{"1","2","3","4"}, {"1","2","3","gggg"}, {"1","2","3","4"}, {"1","2","3","4"}};
+        TelephoneDirectory directory = new TelephoneDirectory();
+        directory.addRecord("Буш", 87651313);
+        directory.addRecord("Рейган", 31231);
+        directory.addRecord("Обама", 2654948);
+        directory.addRecord("Обама", 22132132);
+        directory.addRecord("Обама", 7894351);
+        directory.addRecord("Клинтон", 16546);
+        directory.addRecord("Левински", 48489);
+        directory.addRecord("Левински", 786513);
+        directory.addRecord("Кеннеди", 4651329);
 
-        //по умолчанию проверяется и суммируется массив с правильными элементами
-        //для тестирования "непрвильных" массивов, надо раскомментить строки с запуском функции testArray
-        testArray(rightArray);
-        //testArray(wrongSizeArray);
-        //testArray(wrongDataArray);
+        directory.findNumbersBySurname("Обама");
+        directory.findNumbersBySurname("Рейган");
+        directory.findNumbersBySurname("Левински");
 
     }
 }
