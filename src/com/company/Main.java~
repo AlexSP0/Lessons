@@ -47,17 +47,14 @@ public class Main {
         Box<Apple> appleBox = new Box<>();
         Box<Apple> apple2Box = new Box<>();
         System.out.println();
-        System.out.println("Коробки только созданы, они пустые ");
         System.out.println("Вес коробки с апельсинами: " + orangeBox.getWeight());
         System.out.println("Вес коробки с яблоками: " + appleBox.getWeight());
-        //добавляем фрукты в коробку
         appleBox.add(apples[0]);
         appleBox.add(apples[1]);
         appleBox.add(apples[2]);
         orangeBox.add(orange1);
         orangeBox.add(orange2);
         orangeBox.add(orange3);
-        System.out.println("После добавления фруктов в коробки их вес: ");
         System.out.println("Вес коробки с апельсинами: " + orangeBox.getWeight());
         System.out.println("Вес коробки с яблоками: " + appleBox.getWeight());
         System.out.println("Вес коробки с яблоками №2:  " + apple2Box.getWeight());

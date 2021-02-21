@@ -27,7 +27,7 @@ public class Box<T extends Fruit> {
     public void transfer(Box<T> box) {
             for (T fruit : contents) {
                 box.add(fruit);
-            contents.clear();
         }
+        contents.clear();
     }
 }
