@@ -1,71 +1,29 @@
 package com.company;
 
 
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
+
 public class Main {
-    static final int SIZE = 10000000;
-    static final int HALF = SIZE/2;
-    //заполняем указанный массив единицами
-    public static void fillArrayWith1(float[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = 1.0f;
-        }
-    }
-    //первый метод из задания
-    public static float[] firstMethod() {
-        float[] arr = new float[SIZE];
 
-        //заполнение массива единицами
-        fillArrayWith1(arr);
-
-        //Вычисления по формуле
-        long a = System.currentTimeMillis();
-        for (int i = 0; i < SIZE; i++) {
-            arr[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+    public static final int CARS_COUNT = 4;
+    public static void main(String[] args) throws BrokenBarrierException, InterruptedException {
+        System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Подготовка!!!");
+        CyclicBarrier startBarrier = new CyclicBarrier(CARS_COUNT+1);
+        Race race = new Race(new Road(60), new Tunnel(CARS_COUNT/2), new Road(40));
+        Car[] cars = new Car[CARS_COUNT];
+        for (int i = 0; i < cars.length; i++) {
+            cars[i] = new Car(race, 20 + (int) (Math.random() * 10), startBarrier);
         }
-        System.out.println(System.currentTimeMillis() - a);
-        return arr;
-    }
-    //второй метод из задания
-    public static float[] secondMethod() {
-        float[] arr = new float[SIZE];
-        //заполнение массива единицами
-        fillArrayWith1(arr);
-
-        Thread th1 = new ComputeArray(arr, 0);
-        Thread th2 = new ComputeArray(arr, 1);
-        long a = System.currentTimeMillis();
-        th1.start();
-        th2.start();
-        try {
-            th1.join();
-            th2.join();
-        } catch (InterruptedException e) {
-            System.out.println("Не дождались.. что-то поломалось");
-            e.printStackTrace();
+        for (int i = 0; i < cars.length; i++) {
+            new Thread(cars[i]).start();
         }
-        System.out.println(System.currentTimeMillis() - a);
-        return arr;
-    }
-    public static void main(String[] args) {
-        float[] first = firstMethod();
-        float[] second = secondMethod();
-        compareArrays(first, second); //проверяем, равны ли полученные массивы для тестирования
-
-    }
-    //метод сравнивания полученных массивов, как способ тестирования полученных результатов
-    public static void compareArrays (float[] f, float []s) {
-        for (int i = 0; i < f.length; i++) {
-            if(f[i] != s[i]) {
-                System.out.println("Элементы неравны под индексом: " + i );
-                System.out.println(f[i]);
-                System.out.println(s[i]);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        startBarrier.await();
+        System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!");
+        startBarrier.reset();
+        startBarrier.await();
+        System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
     }
 }
 
